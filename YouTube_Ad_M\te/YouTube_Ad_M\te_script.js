@@ -91,7 +91,7 @@
     }else if (!active && !adFound()) {
       // deactivate mute if no ad found
       if (!musicOn()) clickMute();
-	    videoRate = true;
+      videoRate = true;
       active = true;
     }
     // adjust youtube ad video speed to 2.99x
@@ -99,9 +99,9 @@
     // adjust youtube ad video speed to normal if music is on
     else if (!active && musicOn() && adSpeed()) adjustSpeed(userRate);
     if (videoRate && adSpeed() && userRate !== 2.99) {
-      // adjust youtube ad video speed to normal if no ad
-	    adjustSpeed(userRate);
-	    videoRate = false;
+      // adjust youtube ad video speed to normal if no ad 
+      adjustSpeed(userRate);
+      videoRate = false;
     }
     if (userRate !== videoSpeed() && !adSpeed()) {
       // check user video speed choice
