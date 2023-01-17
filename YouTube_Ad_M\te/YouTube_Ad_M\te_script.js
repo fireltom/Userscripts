@@ -29,7 +29,6 @@
 
   let active = true;
   let userRate;
-  let videoRate = true;
   let count = 1;
 
   function playerPage() {
@@ -79,7 +78,6 @@
     else return null;
   }
 
-
   function mutor() {
     // guard youtube video from ads
 
@@ -91,22 +89,17 @@
     }else if (!active && !adFound()) {
       // deactivate mute if no ad found
       if (!musicOn()) clickMute();
-      videoRate = true;
+      // adjust youtube video speed back to normal
+      if (adSpeed() && userRate !== 2.99) adjustSpeed(userRate);
       active = true;
     }
     // adjust youtube ad video speed to 2.99x
     if (!active && !musicOn() && !adSpeed()) adjustSpeed(2.99);
     // adjust youtube ad video speed to normal if music is on
     else if (!active && musicOn() && adSpeed()) adjustSpeed(userRate);
-    if (videoRate && adSpeed() && userRate !== 2.99) {
-      // adjust youtube ad video speed to normal if no ad 
-      adjustSpeed(userRate);
-      videoRate = false;
-    }
     if (userRate !== videoSpeed() && !adSpeed()) {
-      // check user video speed choice
+      // save user video speed choice
       userRate = videoSpeed();
-      adjustSpeed(userRate);
     }
     count++
     if (!(count%3)) {
