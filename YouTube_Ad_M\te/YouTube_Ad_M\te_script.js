@@ -14,12 +14,12 @@
 // ==/UserScript==
 
 /*
-.This is a simple Script to mute video ads on YouTube automatically.
-.You want to help your favorite YouTuber but you don't want to hear the same ad, over and over again?
-.Then this is for you!
-.The script mutes and speeds up advertisements before and while the video, it also closes lower video ad banners.
-.To keep it small, it only mutes ads on www.youtube.com/watch?* which is 99% of all YouTube videos.
-*/
+ * This is a simple Script to mute video ads on YouTube automatically.
+ * You want to help your favorite YouTuber but you don't want to hear the same ad, over and over again?
+ * Then this is for you!
+ * The script mutes and speeds up advertisements before and while the video, it also closes lower video ad banners.
+ * To keep it small, it only mutes ads on www.youtube.com/watch?* which is 99% of all YouTube videos.
+ */
 
 (function () {
   "use strict";
@@ -33,7 +33,7 @@
 
   function playerPage() {
     // guard function, functions -below- only work on www.youtube.com/watch?*
-    if (window.location.href[29] === "?") return true;
+    if (window.location.href[29] === "?")  return true;
     else return false;
   }
   function adFound() {
@@ -80,7 +80,6 @@
 
   function mutor() {
     // guard youtube video from ads
-
     if (active && adFound()) {
       // activate mute if ad found
       clickMute();
@@ -89,16 +88,16 @@
     }else if (!active && !adFound()) {
       // deactivate mute if no ad found
       if (!musicOn()) clickMute();
-      // adjust youtube video speed back to normal
-      if (adSpeed() && userRate !== 2.99) adjustSpeed(userRate);
       active = true;
     }
+    // adjust new/youtube video speed back to normal
+    if (adSpeed() && !adFound()) adjustSpeed(userRate);
     // adjust youtube ad video speed to 2.99x
-    if (!active && !musicOn() && !adSpeed()) adjustSpeed(2.99);
+    else if (!active && !musicOn() && !adSpeed()) adjustSpeed(2.99);
     // adjust youtube ad video speed to normal if music is on
     else if (!active && musicOn() && adSpeed()) adjustSpeed(userRate);
     if (userRate !== videoSpeed() && !adSpeed()) {
-      // save user video speed choice
+      // check user video speed choice
       userRate = videoSpeed();
     }
     count++
